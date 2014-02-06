@@ -1,0 +1,68 @@
+﻿<UserControl 
+  x:Class="TreeViewWithViewModelDemo.TextSearch.TextSearchDemoControl"
+  xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+  xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+  FocusManager.FocusedElement="{Binding ElementName=searchTextBox}"
+  >
+  <DockPanel>
+    <!-- SEARCH AREA -->
+    <Border 
+      DockPanel.Dock="Bottom" 
+      BorderBrush="Gray" 
+      BorderThickness="1,0,1,1"
+      >
+      <Border.Background>
+        <LinearGradientBrush StartPoint="0,0" EndPoint="0,1">
+          <GradientStop Color="#33000000" Offset="0" />
+          <GradientStop Color="#11000000" Offset="1" />
+        </LinearGradientBrush>
+      </Border.Background>
+
+      <StackPanel 
+        HorizontalAlignment="Center" 
+        Margin="4" 
+        Orientation="Horizontal"
+        >
+        <TextBlock Text="Search for:" />
+        <TextBox 
+          x:Name="searchTextBox"
+          KeyDown="searchTextBox_KeyDown" 
+          Margin="6,0"
+          Text="{Binding SearchText, UpdateSourceTrigger=PropertyChanged}"
+          Width="150"
+          />
+        <Button 
+          Command="{Binding SearchCommand}" 
+          Content="_Find" 
+          Padding="8,0" 
+          />
+      </StackPanel>
+    </Border>
+
+    <!-- FAMILY TREE -->
+    <TreeView ItemsSource="{Binding FirstGeneration}">
+      <TreeView.ItemContainerStyle>
+        <!-- 
+        This Style binds a TreeViewItem to a PersonViewModel. 
+        -->
+        <Style TargetType="{x:Type TreeViewItem}">
+          <Setter Property="IsExpanded" Value="{Binding IsExpanded, Mode=TwoWay}" />
+          <Setter Property="IsSelected" Value="{Binding IsSelected, Mode=TwoWay}" />
+          <Setter Property="FontWeight" Value="Normal" />
+          <Style.Triggers>
+            <Trigger Property="IsSelected" Value="True">
+              <Setter Property="FontWeight" Value="Bold" />
+            </Trigger>
+          </Style.Triggers>
+        </Style>
+      </TreeView.ItemContainerStyle>
+
+      <TreeView.ItemTemplate>
+        <HierarchicalDataTemplate ItemsSource="{Binding Children}">
+          <TextBlock Text="{Binding Name}" />
+        </HierarchicalDataTemplate>
+      </TreeView.ItemTemplate>
+    </TreeView>
+
+  </DockPanel>
+</UserControl>
