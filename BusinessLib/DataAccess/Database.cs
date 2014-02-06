@@ -45,7 +45,16 @@
         #endregion // GetStates
 
         #region GetCities
-
+        public static City[] GetIndianaCities()
+        {
+            return new City[]
+            {
+                new City("Evansville"),
+                new City("Fort Wayne"),
+                new City("Indianapolis"),
+                new City("South Bend")
+            };
+        }
         public static City[] GetCities(State state)
         {
             switch (state.StateName)

@@ -19,8 +19,16 @@ namespace TreeViewWithViewModelDemo.LoadOnDemand
 
         protected override void LoadChildren()
         {
-            foreach (State state in Database.GetStates(_region))
-                base.Children.Add(new StateViewModel(state, this));
+            if (_region.RegionName == "Midwest")
+            {
+                foreach (City city in Database.GetIndianaCities())
+                    base.Children.Add(new CityViewModel(city, null));
+            }
+            else
+            {
+                foreach (State state in Database.GetStates(_region))
+                    base.Children.Add(new StateViewModel(state, this));
+            }
         }
     }
 }
