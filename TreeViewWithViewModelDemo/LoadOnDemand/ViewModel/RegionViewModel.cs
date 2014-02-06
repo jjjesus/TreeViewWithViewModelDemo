@@ -24,10 +24,12 @@ namespace TreeViewWithViewModelDemo.LoadOnDemand
                 foreach (City city in Database.GetIndianaCities())
                     base.Children.Add(new CityViewModel(city, null));
             }
-            else
+            else if (_region.RegionName == "Northeast")
             {
                 foreach (State state in Database.GetStates(_region))
                     base.Children.Add(new StateViewModel(state, this));
+                foreach (City city in Database.GetMaineCities())
+                    base.Children.Add(new CityViewModel(city, null));
             }
         }
     }

@@ -55,6 +55,14 @@
                 new City("South Bend")
             };
         }
+        public static City[] GetMaineCities()
+        {
+            return new City[]
+            {
+                new City("Bangor"),
+                new City("Augusta"),
+            };
+        }
         public static City[] GetCities(State state)
         {
             switch (state.StateName)
